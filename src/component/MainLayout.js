@@ -7,10 +7,24 @@ const MainLayout = () => {
 
     const [filmCollection, setFilmCollection] = useState([]);
     const [firstFilm, setFirstFilm] = useState({});
+    const [error, setError] = useState(null);
 
     const getFilmCollection = async () => {
-        const apiResponse = await axios.get(`https://ghibliapi.herokuapp.com/films`);
-        setFilmCollection(apiResponse.data);
+        await axios.get(`https://ghibliapi.herokuapp.com/films`)
+            .then(response => {
+                if (response.ok) {
+                    throw Error('could not fetch the data for that resource');
+                }
+                return response.data;
+            })
+            .then(data => {
+                setFilmCollection(data);
+                setError(null);
+            })
+            .catch(err => {
+                // auto catches network / connection error
+                setError(err.message);
+            })
     };
 
     useEffect(() => {
@@ -20,8 +34,9 @@ const MainLayout = () => {
 
     return (
         <>
-            <Header/>
-            <FilmContainer Film={firstFilm}/>
+            <Header />
+            { error && <div>{ error }</div> }
+            {firstFilm && <FilmContainer Film={firstFilm} />}
         </>
     );
 }

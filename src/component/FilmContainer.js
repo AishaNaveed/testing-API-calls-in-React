@@ -1,9 +1,11 @@
 const FilmContainer = ({ Film }) => {
     return (
         <>
-            <h2>Film Name :- {Film?.title}</h2>
-            <img src={Film?.image} alt={Film?.title} />
-            <p>{Film?.description}</p>
+            <section className="card__container">
+                <h2>{Film?.title}</h2>
+                <img src={Film?.image} alt={Film?.title} />
+                <p>{Film?.description}</p>
+            </section>
         </>
     );
 }
