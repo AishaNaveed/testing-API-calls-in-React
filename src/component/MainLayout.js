@@ -22,8 +22,16 @@ const MainLayout = () => {
                 setError(null);
             })
             .catch(err => {
-                // auto catches network / connection error
-                setError(err.message);
+                // setError(err.message);      // auto catches network / connection error
+                if(err.response.status === 418){
+                    setError("418: I'm a tea pot 🫖, silly");
+                }
+                else if(err.response.status === 500){
+                    setError("Oops… something went wrong, try again 🤕");
+                }
+                else{
+                    setError(err.message)
+                }
             })
     };
 
@@ -35,7 +43,7 @@ const MainLayout = () => {
     return (
         <>
             <Header />
-            { error && <div>{ error }</div> }
+            { error && <section>{ error }</section> }
             {firstFilm && <FilmContainer Film={firstFilm} />}
         </>
     );
