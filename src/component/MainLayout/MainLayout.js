@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Header from './Header';
-import FilmContainer from './FilmContainer';
+import Header from '../Header/Header';
+import FilmContainer from '../FilmContainer/FilmContainer';
 
 const MainLayout = () => {
 
@@ -24,7 +24,7 @@ const MainLayout = () => {
             .catch(err => {
                 // setError(err.message);      // auto catches network / connection error
                 if(err.response.status === 418){
-                    setError("418: I'm a tea pot 🫖, silly");
+                    setError("418: I am a tea pot 🫖, silly");
                 }
                 else if(err.response.status === 500){
                     setError("Oops… something went wrong, try again");
@@ -44,7 +44,7 @@ const MainLayout = () => {
         <>
             <Header />
             { error && <section>{ error }</section> }
-            {firstFilm && <FilmContainer film={firstFilm} />}
+            { firstFilm && <FilmContainer film={firstFilm} />}
         </>
     );
 }
