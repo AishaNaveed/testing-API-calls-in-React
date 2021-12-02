@@ -10,29 +10,22 @@ const MainLayout = () => {
     const [error, setError] = useState(null);
 
     const getFilmCollection = async () => {
-        await axios.get(`https://ghibliapi.herokuapp.com/films`)
-            .then(response => {
-                if (response.ok) {
-                    throw Error('could not fetch the data for that resource');
-                }
-                return response.data;
-            })
-            .then(data => {
-                setFilmCollection(data);
-                setError(null);
-            })
-            .catch(err => {
-                // setError(err.message);      // auto catches network / connection error
-                if(err.response.status === 418){
-                    setError("418: I am a tea pot 🫖, silly");
-                }
-                else if(err.response.status === 500){
-                    setError("Oops… something went wrong, try again");
-                }
-                else{
-                    setError(err.message)
-                }
-            })
+        try {
+            const { data } = await axios.get(`https://ghibliapi.herokuapp.com/films`)
+            setFilmCollection(data);
+            setError(null);
+        }
+        catch (err) {
+            if (err.response.status === 418) {
+                setError("418: I am a tea pot 🫖, silly");
+            }
+            else if (err.response.status === 500) {
+                setError("Oops… something went wrong, try again");
+            }
+            else {
+                setError(err.message)
+            }
+        }
     };
 
     useEffect(() => {
@@ -43,8 +36,8 @@ const MainLayout = () => {
     return (
         <>
             <Header />
-            { error && <section>{ error }</section> }
-            { firstFilm && <FilmContainer film={firstFilm} />}
+            {error && <section>{error}</section>}
+            {firstFilm && <FilmContainer film={firstFilm} />}
         </>
     );
 }

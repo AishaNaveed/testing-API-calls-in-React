@@ -1,4 +1,7 @@
 const FilmContainer = ({ film }) => {
+    // console.log(film.length);
+    // if(film.length > 0)
+    //     console.log(film.title);
     return (
         <>
             <section className="card__container">
