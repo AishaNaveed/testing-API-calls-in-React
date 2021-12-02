@@ -27,7 +27,7 @@ const MainLayout = () => {
                     setError("418: I'm a tea pot 🫖, silly");
                 }
                 else if(err.response.status === 500){
-                    setError("Oops… something went wrong, try again 🤕");
+                    setError("Oops… something went wrong, try again");
                 }
                 else{
                     setError(err.message)
@@ -44,7 +44,7 @@ const MainLayout = () => {
         <>
             <Header />
             { error && <section>{ error }</section> }
-            {firstFilm && <FilmContainer Film={firstFilm} />}
+            {firstFilm && <FilmContainer film={firstFilm} />}
         </>
     );
 }
