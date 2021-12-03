@@ -1,5 +1,7 @@
 const FilmContainer = ({ film }) => {
     
+    const objFilm = film[0];
+    
     return (
         <>
             <section className="card__container">

@@ -33,7 +33,7 @@ describe('Film Container component', () => {
     test('should render first film title on the page', async () => {
         render(<FilmContainer {...propsRequired} />);
         await waitFor(() => screen.getByRole('heading'));
-        expect(screen.getByRole('heading')).toHaveTextContent(/Castle in the Sky/i);
+        expect(screen.getByRole('heading')).not.toHaveTextContent(/Grave of the Fireflies/i);
     });
 
     test('should render first film title on the page', async () => {
