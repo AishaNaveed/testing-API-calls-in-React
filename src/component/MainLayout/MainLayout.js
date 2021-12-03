@@ -5,14 +5,13 @@ import FilmContainer from '../FilmContainer/FilmContainer';
 
 const MainLayout = () => {
 
-    const [filmCollection, setFilmCollection] = useState([]);
-    const [firstFilm, setFirstFilm] = useState({});
+    const [firstFilm, setFirstFilm] = useState([]);
     const [error, setError] = useState(null);
 
     const getFilmCollection = async () => {
         try {
-            const { data } = await axios.get(`https://ghibliapi.herokuapp.com/films`)
-            setFilmCollection(data);
+            const apiResponse = await axios.get(`https://ghibliapi.herokuapp.com/films`)
+            setFirstFilm(apiResponse.data);
             setError(null);
         }
         catch (err) {
@@ -30,8 +29,7 @@ const MainLayout = () => {
 
     useEffect(() => {
         getFilmCollection();
-        setFirstFilm(filmCollection[0]);
-    }, [filmCollection]);
+    }, []);
 
     return (
         <>

@@ -1,5 +1,5 @@
 import FilmContainer from "./FilmContainer";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 
@@ -17,11 +17,11 @@ const server = setupServer(
 );
 
 beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers);
+afterEach(() => server.resetHandlers());
 beforeEach(() => {
     propsRequired = {
         title: "Castle in the Sky",
-        url: "https://ghibliapi.herokuapp.com/films/",
+        // url: "https://ghibliapi.herokuapp.com/films/",
     };
 });
 afterAll(() => server.close());

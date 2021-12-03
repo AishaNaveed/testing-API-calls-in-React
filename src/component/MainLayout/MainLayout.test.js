@@ -10,7 +10,7 @@ const server = setupServer(
 );
 
 beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers);
+afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('Main layout component', () => {
@@ -26,15 +26,15 @@ describe('Main layout component', () => {
         expect(screen.getByText('Oops… something went wrong, try again')).toBeInTheDocument();
     });
 
-    // test('should render error when API return status 418', async () => {
-    //     server.use(
-    //         rest.get('https://ghibliapi.herokuapp.com/films', (req, res, ctx) => {
-    //             return res(ctx.status(418));
-    //         })
-    //     );
-    //     render(<MainLayout />);
+    test('should render error when API return status 418', async () => {
+        server.use(
+            rest.get('https://ghibliapi.herokuapp.com/films', (req, res, ctx) => {
+                return res(ctx.status(418));
+            })
+        );
+        render(<MainLayout />);
 
-    //     await waitFor(() => screen.getByText('418: I am a tea pot 🫖, silly'));
-    //     expect(screen.getByText('418: I am a tea pot 🫖, silly')).toBeInTheDocument();
-    // });
+        await waitFor(() => screen.getByText('418: I am a tea pot 🫖, silly'));
+        expect(screen.getByText('418: I am a tea pot 🫖, silly')).toBeInTheDocument();
+    });
 });
